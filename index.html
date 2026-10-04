@@ -104,6 +104,21 @@ dialog h3{font-size:1.4rem;margin-bottom:6px}
 dialog .k{color:var(--accent);font-weight:600;margin-bottom:12px;font-size:.92rem}
 dialog p{margin:0 0 12px}
 dialog .r{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+#lab{padding:56px 0}
+.lh{font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:10px}
+.lh::after{content:"";display:block;width:36px;height:3px;background:var(--accent);margin-top:10px}
+#lab .sub{color:var(--muted);max-width:70ch;margin:0 0 24px}
+.fcw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--soft)}
+.fcw canvas{display:block}
+.fcbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.fcbar label{font-weight:600}
+.fcbar input[type=range]{width:min(320px,60vw);accent-color:var(--accent)}
+.fcbar output{min-width:3ch;font-weight:600}
+.fcro{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.fcro div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.fcro b{display:block;font:800 1.5rem "Bricolage Grotesque",sans-serif}
+.fcro span{color:var(--muted);font-size:.85rem}
+.cap{margin:16px 0 0;min-height:3.3em;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px}
 @media (min-width:1100px) and (min-height:680px){.hero{min-height:calc(100vh - 62px)}}
 @media (min-width:1900px){html{scroll-padding-top:90px}.facts{padding:40px}}
 @media (max-height:520px){nav{position:static}.row>h2{position:static}.hero{padding:28px 0;min-height:0}section{padding:36px 0}.facts{padding:18px}.facts b{font-size:1.9rem}}
@@ -112,7 +127,7 @@ dialog .r{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}.js .rv{opacity:1;transform:none}}
 @media print{
  @page{margin:14mm}
- nav,#bar,dialog,.tools,.noprint{display:none}
+ nav,#bar,dialog,.tools,.noprint,#lab{display:none}
  body{background:#fff;color:#000;font-size:11pt}
  section{padding:18px 0;break-inside:avoid;border-color:#ccc}
  .hero{padding:10px 0 20px;grid-template-columns:1fr}.facts{background:#fff!important;color:#000!important;border:1px solid #999}.facts b{color:#C8102E!important}
@@ -127,7 +142,7 @@ dialog .r{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 <div id="bar"></div>
 <nav aria-label="Sections"><div class="wrap">
 <a class="brand" href="#top">Harsh Mourya<span>.</span></a>
-<a class="l" href="#experience">Experience</a><a class="l" href="#products">Products</a><a class="l" href="#journey">Journey</a><a class="l" href="#skills">Skills</a><a class="l" href="#contact">Contact</a>
+<a class="l" href="#lab">Interactive</a><a class="l" href="#experience">Experience</a><a class="l" href="#products">Products</a><a class="l" href="#journey">Journey</a><a class="l" href="#skills">Skills</a><a class="l" href="#contact">Contact</a>
 <button class="btn p noprint" id="pr">Save as PDF</button>
 </div></nav>
 
@@ -151,6 +166,18 @@ dialog .r{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 <div><b data-n="100">0</b><span>embedded and IoT projects</span></div>
 </div>
 </div>
+
+<section id="lab"><div class="wrap">
+<h2 class="lh">Hydrogen fuel cell, interactive</h2>
+<p class="sub">A working model of the technology behind Ehydra. Change the hydrogen flow, hover over the parts, and click the robot to connect or disconnect it. Values are illustrative, for a 10-cell stack.</p>
+<div class="fcw"><canvas id="fc" role="img" aria-label="Animated hydrogen fuel cell powering a robot"></canvas></div>
+<div class="fcbar">
+<label for="fl">Hydrogen flow</label><input id="fl" type="range" min="0" max="100" value="60"><output id="flo">60%</output>
+<button class="chip" id="ld" aria-pressed="true">Robot load: connected</button>
+</div>
+<div class="fcro"><div><b id="rv">0 V</b><span>Stack voltage</span></div><div><b id="ri">0 A</b><span>Current</span></div><div><b id="rp">0 W</b><span>Power</span></div><div><b id="rh">0</b><span>Hydrogen used</span></div><div><b id="rw">0</b><span>Water produced</span></div></div>
+<p id="cap" class="cap" aria-live="polite">Move over a part (or tap it) to see what it does.</p>
+</div></section>
 
 <section id="experience"><div class="wrap row">
 <h2>Experience</h2>
@@ -246,6 +273,85 @@ var io=new IntersectionObserver(function(a){a.forEach(function(e){if(e.isInterse
 [].forEach.call(document.querySelectorAll('[data-n]'),function(el){var t=+el.dataset.n,n=0,st=Math.max(1,Math.ceil(t/40)),i=setInterval(function(){n=Math.min(t,n+st);el.textContent=n+(t>=100?'+':'');if(n>=t)clearInterval(i)},30)});
 function sc(){var h=document.documentElement.scrollHeight-innerHeight;$('bar').style.width=(h>0?scrollY/h*100:0)+'%';var r=tl.getBoundingClientRect();$('ln').style.height=Math.min(r.height-6,Math.max(0,innerHeight*.6-r.top))+'px'}
 addEventListener('scroll',sc,{passive:true});sc();
+(function(){
+var cv=$('fc');if(!cv)return;
+var x=cv.getContext('2d'),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var WD=900,HD=430,S=1,C={},flow=60,load=true,vis=true,last=0,mx=-1,my=-1,hov='',acc=0,oacc=0,t=0,fr=0,Ls=0;
+var H=[],O=[],E=[],Pr=[],D=[];
+var path=[[270,110],[270,40],[760,40],[760,300],[640,300],[640,75],[360,75],[360,110]],cum=[0];
+for(var i=1;i<path.length;i++)cum.push(cum[i-1]+Math.abs(path[i][0]-path[i-1][0])+Math.abs(path[i][1]-path[i-1][1]));
+var PL=cum[cum.length-1];
+function at(s){for(var k=1;k<path.length;k++)if(s<=cum[k]){var f=(s-cum[k-1])/(cum[k]-cum[k-1]);return[path[k-1][0]+(path[k][0]-path[k-1][0])*f,path[k-1][1]+(path[k][1]-path[k-1][1])*f]}return path[path.length-1]}
+var R=[['robot',625,95,150,295],['tank',40,170,80,130],['anode',240,110,60,220],['mem',300,110,30,220],['cathode',330,110,60,220],['water',335,330,50,90]];
+var INFO={robot:'Robot load: the electrons that leave the fuel cell power the robot. Click the robot to connect or disconnect it.',tank:'Hydrogen tank: compressed hydrogen (H₂) is fed to the anode at a controlled rate. More flow means more current.',anode:'Anode: a platinum catalyst splits each H₂ molecule into two protons (H⁺) and two electrons (e⁻).',mem:'Proton exchange membrane (PEM): lets protons pass but blocks electrons, which forces the electrons through the external circuit.',cathode:'Cathode: oxygen from the air, protons and returning electrons combine to form water. The only exhaust is water.',water:'Water outlet: the only by-product of a hydrogen fuel cell is water, plus some heat.'};
+var DEF='Move over a part (or tap it) to see what it does.';
+function colors(){var s=getComputedStyle(document.documentElement);['--bg','--soft','--ink','--muted','--line','--accent'].forEach(function(k){C[k]=s.getPropertyValue(k).trim()})}
+function fit(){var w=Math.max(cv.parentNode.clientWidth,680),d=Math.min(devicePixelRatio||1,2);S=w/WD;cv.style.width=w+'px';cv.style.height=HD*S+'px';cv.width=w*d;cv.height=HD*S*d;x.setTransform(d*S,0,0,d*S,0,0);if(RM)draw()}
+function rr(a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()}
+function seg(a,b,c,d){x.beginPath();x.moveTo(a,b);x.lineTo(c,d);x.stroke()}
+function dot(a,b,r,f){x.fillStyle=f;x.beginPath();x.arc(a,b,r,0,6.283);x.fill()}
+function stats(){var f=flow/100,I=load?f*10:0,V=10*(.95-.04*I);return{I:I,V:V,P:V*I,h:I*.00627,w:I*.0564}}
+function upd(dt){var f=flow/100;
+ acc+=dt*f*7*(load?1:.12);while(acc>=1){acc--;if(H.length<14)H.push({x:122,y:226+Math.random()*18,s:240+Math.random()*24})}
+ var vx=60+140*f;
+ H=H.filter(function(m){m.x+=vx*dt;if(!load&&m.x>m.s)m.x=m.s;if(load&&m.x>=268){Pr.push({x:300,y:m.y-4+Math.random()*8});E.push({s:0});E.push({s:-30});return false}return true});
+ oacc+=dt*f*3.5*(load?1:.12);while(oacc>=1){oacc--;if(O.length<8)O.push({x:572,y:228+Math.random()*24})}
+ O=O.filter(function(m){m.x-=vx*.8*dt;return m.x>396});
+ var es=110+240*f;E=E.filter(function(e){e.s+=es*dt;return e.s<PL});
+ Pr=Pr.filter(function(p){p.x+=(70+40*f)*dt;if(p.x>=362){if(Math.random()<.5)D.push({x:338+Math.random()*32,y:332,a:1});return false}return true});
+ D=D.filter(function(d){d.y+=70*dt;d.a-=dt*.7;return d.a>0});
+ var st=stats();Ls+=(Math.min(1,st.P/55)-Ls)*Math.min(1,dt*4)}
+function robot(L){
+ x.lineWidth=3;x.strokeStyle=C['--ink'];x.fillStyle=C['--ink'];rr(655,360,30,28,6);x.fill();rr(715,360,30,28,6);x.fill();
+ var w=Math.sin(t*5)*.45*Ls;
+ x.save();x.translate(625,234);x.rotate(.3+w);x.fillStyle=C['--bg'];rr(-16,0,16,58,8);x.fill();x.stroke();x.restore();
+ x.save();x.translate(775,234);x.rotate(-.3-w);x.fillStyle=C['--bg'];rr(0,0,16,58,8);x.fill();x.stroke();x.restore();
+ x.fillStyle=C['--bg'];rr(625,215,150,145,18);x.fill();x.stroke();
+ x.fillStyle=C['--soft'];rr(650,236,100,60,8);x.fill();x.lineWidth=1.5;x.strokeStyle=C['--line'];x.stroke();
+ for(var k=0;k<5;k++){var h=10+k*8;x.fillStyle=L>(k+.4)/5?C['--accent']:C['--line'];x.fillRect(660+k*17,288-h,12,h)}
+ x.fillStyle=C['--muted'];x.font='600 12px "IBM Plex Sans",sans-serif';x.textAlign='center';x.fillText(load?'Powered by H₂':'Disconnected',700,322);
+ x.fillText('Robot load',700,340);
+ x.lineWidth=3;x.strokeStyle=C['--ink'];x.fillStyle=C['--bg'];rr(650,130,100,72,16);x.fill();x.stroke();x.fillRect(690,202,20,14);
+ var eyes=[685,715];eyes.forEach(function(ex){var ey=166;dot(ex,ey,12,L>.03?C['--bg']:C['--soft']);x.lineWidth=2;x.strokeStyle=L>.03?C['--accent']:C['--line'];x.beginPath();x.arc(ex,ey,12,0,6.283);x.stroke();
+  var dx,dy;if(mx<0){dx=Math.sin(t*.8)*4;dy=0}else{var vx=mx-ex,vy=my-ey,d=Math.sqrt(vx*vx+vy*vy)||1,m=Math.min(5,d/25);dx=vx/d*m;dy=vy/d*m}
+  dot(ex+dx,ey+dy,5,C['--ink'])});
+ x.strokeStyle=C['--ink'];x.lineWidth=3;x.lineCap='round';x.beginPath();if(L>.3){x.arc(700,184,9,.2,Math.PI-.2)}else{x.moveTo(690,190);x.lineTo(710,190)}x.stroke();
+ seg(700,130,700,108);x.globalAlpha=.3+.7*L*(.5+.5*Math.sin(t*6));dot(700,100,7,C['--accent']);x.globalAlpha=1}
+function draw(){
+ var ink=C['--ink'],mu=C['--muted'],lin=C['--line'],ac=C['--accent'],so=C['--soft'],bg=C['--bg'];
+ x.clearRect(0,0,WD,HD);x.fillStyle=so;rr(0,0,WD,HD,14);x.fill();x.textAlign='center';x.lineCap='round';
+ x.lineWidth=9;x.strokeStyle=lin;seg(120,235,240,235);seg(570,240,390,240);seg(360,330,360,392);
+ x.lineWidth=2.5;x.strokeStyle=ink;x.fillStyle=bg;rr(40,170,80,130,22);x.fill();x.stroke();
+ x.fillStyle=ac;x.font='800 26px "Bricolage Grotesque",sans-serif';x.fillText('H₂',80,243);
+ x.fillStyle=ink;x.font='600 13px "IBM Plex Sans",sans-serif';x.fillText('Hydrogen tank',80,322);
+ [[240,60],[330,60]].forEach(function(p){x.fillStyle=bg;x.strokeStyle=ink;x.lineWidth=2.5;x.beginPath();x.rect(p[0],110,p[1],220);x.fill();x.stroke();x.strokeStyle=lin;x.lineWidth=1.5;for(var k=1;k<4;k++)seg(p[0]+k*(p[1]/4),122,p[0]+k*(p[1]/4),318)});
+ x.globalAlpha=.35;x.fillStyle=ac;x.fillRect(300,110,30,220);x.globalAlpha=1;x.strokeStyle=ink;x.lineWidth=2.5;x.strokeRect(300,110,30,220);
+ x.fillStyle=ac;x.fillRect(296,110,4,220);x.fillRect(330,110,4,220);
+ x.fillStyle=ink;x.font='600 13px "IBM Plex Sans",sans-serif';x.fillText('Anode',270,352);x.fillText('Cathode',360,352);x.fillStyle=mu;x.fillText('Membrane (PEM)',315,372);
+ x.fillStyle=ink;x.fillText('Air (O₂)',480,226);x.fillText('H₂O out',360,416);
+ x.lineWidth=3;x.strokeStyle=ink;x.beginPath();path.forEach(function(p,k){k?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])});x.stroke();
+ x.fillStyle=mu;x.fillText('Electrons (e⁻) flow through the external circuit',520,30);
+ robot(Ls);
+ H.forEach(function(m){dot(m.x-3,m.y,5,mu);dot(m.x+4,m.y,5,mu)});
+ O.forEach(function(m){x.globalAlpha=.9;dot(m.x-4,m.y,6,ac);dot(m.x+4,m.y,6,ac);x.globalAlpha=1});
+ Pr.forEach(function(p){dot(p.x,p.y,5.5,ac);x.strokeStyle='#fff';x.lineWidth=1.5;seg(p.x-3,p.y,p.x+3,p.y);seg(p.x,p.y-3,p.x,p.y+3)});
+ E.forEach(function(e){if(e.s<0)return;var p=at(e.s);dot(p[0],p[1],5,bg);dot(p[0],p[1],3.5,ink)});
+ D.forEach(function(d){x.globalAlpha=d.a;x.fillStyle=bg;x.strokeStyle=ink;x.lineWidth=1.5;x.beginPath();x.arc(d.x,d.y,4.5,0,6.283);x.fill();x.stroke();x.globalAlpha=1});
+ if(hov){var r=R.filter(function(q){return q[0]===hov})[0];x.setLineDash([6,5]);x.strokeStyle=ac;x.lineWidth=2.5;x.strokeRect(r[1]-4,r[2]-4,r[3]+8,r[4]+8);x.setLineDash([])}
+ x.font='500 12px "IBM Plex Sans",sans-serif';x.textAlign='left';[['H₂',mu,40],['O₂',ac,110],['H⁺',ac,180],['e⁻',ink,250]].forEach(function(l){dot(l[2],404,5,l[1]);x.fillStyle=ink;x.fillText(l[0],l[2]+11,408)});x.textAlign='center'}
+function ro(){var s=stats();$('rv').textContent=s.V.toFixed(1)+' V';$('ri').textContent=s.I.toFixed(1)+' A';$('rp').textContent=s.P.toFixed(0)+' W';$('rh').textContent=s.h.toFixed(3)+' g/min';$('rw').textContent=s.w.toFixed(2)+' g/min'}
+function loop(ts){requestAnimationFrame(loop);if(!vis)return;var dt=Math.min(.05,(ts-last)/1000||0);last=ts;t+=dt;upd(dt);draw();if(fr++%8===0)ro();if(fr%120===0)colors()}
+function pos(e){var r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*WD;my=(e.clientY-r.top)/r.height*HD;var h='';R.forEach(function(q){if(mx>=q[1]&&mx<=q[1]+q[3]&&my>=q[2]&&my<=q[2]+q[4])h=q[0]});hov=h;$('cap').textContent=h?INFO[h]:DEF;cv.style.cursor=h==='robot'?'pointer':'default';if(RM)draw()}
+cv.addEventListener('pointermove',pos);cv.addEventListener('pointerdown',pos);
+cv.addEventListener('pointerleave',function(){mx=-1;hov='';$('cap').textContent=DEF;if(RM)draw()});
+function setLoad(v){load=v;$('ld').setAttribute('aria-pressed',v);$('ld').textContent='Robot load: '+(v?'connected':'disconnected');ro();if(RM)draw()}
+cv.addEventListener('click',function(){if(hov==='robot')setLoad(!load)});
+$('ld').onclick=function(){setLoad(!load)};
+$('fl').oninput=function(){flow=+this.value;$('flo').textContent=flow+'%';ro();if(RM)Ls=Math.min(1,stats().P/55),draw()};
+if(window.IntersectionObserver)new IntersectionObserver(function(a){vis=a[0].isIntersecting}).observe(cv.parentNode);
+addEventListener('resize',fit);colors();fit();ro();
+if(RM){Ls=Math.min(1,stats().P/55);draw()}else requestAnimationFrame(loop);
+})();
 </script>
 </body>
 </html>
