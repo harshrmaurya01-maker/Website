@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harsh Mourya – Robotics, Hydrogen and IoT Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F7F8;--surface:#FFFFFF;--ink:#0D2B3A;--muted:#4A6572;--line:#CFE0E5;--accent:#0E7FB0;--warm:#D98A1F;--ok:#12805C;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1C26;--surface:#102A38;--ink:#E6F2F6;--muted:#9DB6C1;--line:#1E4153;--accent:#4CC3F0;--warm:#F0B04A;--ok:#4FD1A1}}
+:root[data-theme="dark"]{--bg:#0A1C26;--surface:#102A38;--ink:#E6F2F6;--muted:#9DB6C1;--line:#1E4153;--accent:#4CC3F0;--warm:#F0B04A;--ok:#4FD1A1}
+*{box-sizing:border-box}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;line-height:1.1;margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--warm);outline-offset:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px;position:relative}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center;padding-top:12px;padding-bottom:12px;font-weight:500}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--accent)}
+nav .hire{margin-left:auto;background:var(--accent);color:var(--bg);padding:8px 18px;border-radius:999px;font-weight:500;border:0;font-family:inherit;font-size:1rem;cursor:pointer;animation:ring 2.6s ease-in-out infinite}
+@keyframes ring{0%,80%,100%{box-shadow:0 0 0 0 transparent}90%{box-shadow:0 0 0 10px color-mix(in srgb,var(--accent) 25%,transparent)}}
+/* hero */
+.hero{position:relative;overflow:hidden}
+.circuit{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
+.circuit path{fill:none;stroke:var(--line);stroke-width:2}
+.circuit .pulse{stroke:var(--accent);stroke-dasharray:14 240;animation:run 5s linear infinite}
+.circuit .pulse.b{stroke:var(--warm);animation-duration:7s;animation-delay:-2s}
+@keyframes run{to{stroke-dashoffset:-254}}
+.hgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:56px 0 72px;position:relative}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:800;letter-spacing:-.02em}
+.term{font:500 .95rem/1.7 ui-monospace,Menlo,Consolas,monospace;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:22px 0;max-width:420px;min-height:112px;color:var(--ink)}
+.term i{color:var(--ok);font-style:normal}
+.term .cur{display:inline-block;width:8px;height:1em;background:var(--accent);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.stats{display:flex;gap:28px;flex-wrap:wrap}
+.stats b{display:block;font:800 2rem "Bricolage Grotesque",sans-serif;color:var(--accent)}
+.stats span{font-size:.9rem;color:var(--muted)}
+.bot{width:100%;height:auto;max-width:380px;margin:0 auto;display:block}
+.bot .float{animation:float 4s ease-in-out infinite}
+.bot .eye{transform-box:fill-box;transform-origin:center;animation:eyes 4.5s infinite}
+.bot .arm{transform-box:fill-box;transform-origin:top center;animation:wave 1.6s ease-in-out infinite alternate}
+.bot .ant{animation:glow 1.4s ease-in-out infinite alternate}
+.bot .gear{transform-box:fill-box;transform-origin:center;animation:spin 6s linear infinite}
+.bot .gear.g2{animation-direction:reverse;animation-duration:4s}
+@keyframes float{50%{transform:translateY(-10px)}}
+@keyframes eyes{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes wave{from{transform:rotate(-14deg)}to{transform:rotate(22deg)}}
+@keyframes glow{from{opacity:.3}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* sections */
+h2.title{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:10px}
+.sub{color:var(--muted);margin:0 0 36px;max-width:56ch}
+section{padding:56px 0;border-top:1px solid var(--line)}
+/* timeline */
+.tl{position:relative;padding-left:48px}
+.tl::before{content:"";position:absolute;left:13px;top:0;bottom:0;width:3px;background:var(--line);border-radius:2px}
+.tl .fill{position:absolute;left:13px;top:0;width:3px;height:0;background:linear-gradient(var(--accent),var(--warm));border-radius:2px}
+.rover{position:absolute;left:-1px;top:0;width:30px;transition:top .15s linear;z-index:2}
+.year{position:relative;margin-bottom:64px}
+.year::before{content:"";position:absolute;left:-43px;top:12px;width:18px;height:18px;border-radius:4px;transform:rotate(45deg);background:var(--bg);border:4px solid var(--accent)}
+.year h3{font-size:clamp(2.4rem,6vw,3.6rem);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+.year .body{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
+button.ev{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;cursor:pointer;transition:transform .2s,border-color .2s}
+button.ev:hover{transform:translateX(6px);border-color:var(--accent)}
+button.ev small{display:block;color:var(--muted);font-size:.85rem}
+button.ev.win{border-left:5px solid var(--warm)}
+button.ev::after{content:"Details +";float:right;font-size:.8rem;color:var(--accent);margin-top:-22px}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.photo{aspect-ratio:4/3;border:2px dashed var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:.85rem;color:var(--muted);padding:8px;background:var(--surface)}
+.photo svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:1.8}
+.photos .photo:last-child:nth-child(odd){grid-column:1/-1}
+.js .rv{opacity:0;transform:translateY(28px) scale(.98);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+/* products */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+button.card{text-align:left;font:inherit;color:inherit;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s}
+button.card:hover{transform:translateY(-6px) rotate(-.6deg);border-color:var(--accent)}
+.card .photo{border:0;border-bottom:2px dashed var(--line);border-radius:0;aspect-ratio:16/10}
+.card .t{padding:16px 20px}
+.card h3{font-size:1.15rem;margin-bottom:4px}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+/* library */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{padding:6px 14px;border:1px solid var(--line);background:var(--surface);border-radius:999px;font-size:.92rem;color:var(--ink);font-family:inherit;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lib{display:flex;flex-wrap:wrap;gap:8px}
+.lib button{padding:5px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font:inherit;font-size:.9rem;color:var(--ink);cursor:pointer;animation:pop .35s ease both;transition:transform .15s,border-color .15s}
+.lib button:hover{transform:translateY(-3px);border-color:var(--warm)}
+@keyframes pop{from{opacity:0;transform:scale(.9)}}
+/* contact */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px}
+.cbtn{display:flex;flex-direction:column;gap:2px;padding:18px 20px;border-radius:14px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);transition:transform .2s,border-color .2s;word-break:break-all}
+.cbtn:hover{transform:translateY(-4px);border-color:var(--accent)}
+.cbtn small{color:var(--muted)}
+.cbtn b{font:700 1.15rem "Bricolage Grotesque",sans-serif}
+footer{padding:56px 0 72px;border-top:1px solid var(--line);color:var(--muted)}
+/* modal */
+dialog{border:0;border-radius:18px;max-width:540px;width:calc(100% - 32px);background:var(--surface);color:var(--ink);padding:28px;animation:dlg .3s ease}
+dialog::backdrop{background:rgba(5,20,30,.62)}
+@keyframes dlg{from{opacity:0;transform:translateY(24px) scale(.96)}}
+dialog h3{font-size:1.6rem;margin-bottom:6px}
+dialog .k{color:var(--accent);font-weight:500;margin-bottom:14px}
+dialog p{margin:0 0 14px}
+dialog .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+dialog .row a,dialog .x{padding:10px 18px;border-radius:999px;font:500 1rem inherit;text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;font-family:inherit}
+dialog .row a.p{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+@media (max-width:760px){.hgrid,.year .body{grid-template-columns:1fr}.tl{padding-left:40px}.year::before{left:-35px}button.ev::after{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.js .rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav aria-label="Sections"><div class="wrap"><a href="#journey">Journey</a><a href="#products">Products</a><a href="#library">Projects</a><button class="hire" data-contact>Contact me</button></div></nav>
+
+<div class="hero">
+<svg class="circuit" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
+<path d="M0 80 H220 L260 120 H520 L560 80 H1000"/><path d="M0 300 H140 L180 340 H460 L500 300 H760 L800 340 H1000"/><path d="M0 460 H300 L340 420 H700 L740 460 H1000"/>
+<path class="pulse" d="M0 80 H220 L260 120 H520 L560 80 H1000"/><path class="pulse b" d="M0 300 H140 L180 340 H460 L500 300 H760 L800 340 H1000"/><path class="pulse" d="M0 460 H300 L340 420 H700 L740 460 H1000"/>
+</svg>
+<div class="wrap"><div class="hgrid">
+<div>
+<h1>Harsh Ramesh Mourya</h1>
+<div class="term" id="term" aria-label="Boot log"></div>
+<div class="stats"><div><b data-n="6">0</b><span>startup products</span></div><div><b data-n="200">0</b><span>PSA machines built</span></div><div><b data-n="100">0</b><span>embedded projects</span></div></div>
+</div>
+<svg class="bot" viewBox="0 0 360 340" role="img" aria-label="Animated friendly robot waving">
+<g class="gear" ><circle cx="60" cy="280" r="26" fill="none" stroke="var(--warm)" stroke-width="10" stroke-dasharray="8 6"/><circle cx="60" cy="280" r="8" fill="var(--warm)"/></g>
+<g class="gear g2"><circle cx="305" cy="300" r="20" fill="none" stroke="var(--accent)" stroke-width="8" stroke-dasharray="7 5"/><circle cx="305" cy="300" r="6" fill="var(--accent)"/></g>
+<g class="float">
+<line x1="180" y1="40" x2="180" y2="70" stroke="var(--ink)" stroke-width="4"/><circle class="ant" cx="180" cy="34" r="9" fill="var(--warm)"/>
+<rect x="110" y="70" width="140" height="100" rx="22" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/>
+<ellipse class="eye" cx="150" cy="115" rx="14" ry="16" fill="var(--accent)"/><ellipse class="eye" cx="210" cy="115" rx="14" ry="16" fill="var(--accent)"/>
+<path d="M155 148 Q180 162 205 148" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+<rect x="120" y="182" width="120" height="100" rx="16" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/>
+<rect x="155" y="205" width="50" height="34" rx="6" fill="var(--accent)" opacity=".25" stroke="var(--accent)" stroke-width="2"/>
+<text x="180" y="229" text-anchor="middle" font-size="18" font-weight="700" fill="var(--ink)" font-family="Bricolage Grotesque,sans-serif">H₂</text>
+<rect x="84" y="190" width="26" height="70" rx="12" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/>
+<g class="arm"><rect x="250" y="190" width="26" height="70" rx="12" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/></g>
+<rect x="140" y="284" width="26" height="36" rx="8" fill="var(--ink)"/><rect x="194" y="284" width="26" height="36" rx="8" fill="var(--ink)"/>
+</g></svg>
+</div></div></div>
+
+<section id="journey"><div class="wrap">
+<h2 class="title">My journey</h2>
+<p class="sub">Year by year, from oxygen machines to a hydrogen three-wheeler. Tap any card for details.</p>
+<div class="tl" id="tl"><div class="fill" id="fill"></div>
+<svg class="rover" id="rover" viewBox="0 0 30 30" aria-hidden="true"><rect x="5" y="4" width="20" height="14" rx="4" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><circle cx="11" cy="11" r="2.5" fill="var(--accent)"/><circle cx="19" cy="11" r="2.5" fill="var(--accent)"/><circle cx="9" cy="24" r="4" fill="var(--ink)"/><circle cx="21" cy="24" r="4" fill="var(--ink)"/><rect x="5" y="17" width="20" height="4" fill="var(--warm)"/></svg></div>
+</div></section>
+
+<section id="products"><div class="wrap">
+<h2 class="title">Startup products</h2>
+<p class="sub">Machines and vehicles I helped design and build. Tap a card to read more.</p>
+<div class="grid" id="prod"></div>
+</div></section>
+
+<section id="library"><div class="wrap">
+<h2 class="title">Project library</h2>
+<p class="sub">Embedded, IoT and robotics projects. Pick a category, then tap a project.</p>
+<div class="chips" id="chips" role="group" aria-label="Project category"></div>
+<div class="lib" id="lib"></div>
+</div></section>
+
+<footer id="contact"><div class="wrap">
+<h2 class="title" style="color:var(--ink)">Let's build something</h2>
+<p>Based in Nagpur, Maharashtra. Open to R&amp;D, embedded systems, robotics, fuel cell and incubation roles.</p>
+<div class="cgrid">
+<a class="cbtn" href="tel:+919111922180"><small>Call</small><b>+91 91119 22180</b></a>
+<a class="cbtn" href="https://wa.me/919111922180"><small>WhatsApp</small><b>+91 91119 22180</b></a>
+<a class="cbtn" href="mailto:harshrmaurya01@gmail.com"><small>Email</small><b>harshrmaurya01@gmail.com</b></a>
+</div></div></footer>
+
+<dialog id="dlg" aria-labelledby="dt"><h3 id="dt"></h3><div class="k" id="dk"></div><p id="dd"></p><p id="de" style="color:var(--muted)"></p>
+<div class="row"><a class="p" href="tel:+919111922180">Call Harsh</a><a href="mailto:harshrmaurya01@gmail.com">Email</a><a href="https://wa.me/919111922180">WhatsApp</a><button class="x" id="close">Close</button></div></dialog>
+
+<script>
+document.documentElement.classList.add('js');
+var dlg=document.getElementById('dlg');
+function open_(t,k,d,e){document.getElementById('dt').textContent=t;document.getElementById('dk').textContent=k;document.getElementById('dd').textContent=d;document.getElementById('de').textContent=e||'';dlg.showModal();}
+document.getElementById('close').onclick=function(){dlg.close()};
+dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+document.querySelector('[data-contact]').onclick=function(){open_('Get in touch','Harsh Ramesh Mourya, Nagpur','Call, message or email me about R&D, robotics, embedded, fuel cell or incubation work.','Phone: +91 91119 22180 | Email: harshrmaurya01@gmail.com')};
+var cam='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h4l2-3h6l2 3h4v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+function photo(l){return '<div class="photo">'+cam+'<span>'+l+'</span></div>';}
+var Y=[
+{y:2021,e:[["Developed Pranvayu oxygen concentrator","For COVID patients",0,"A PSA-based oxygen concentrator built during the COVID-19 wave to supply oxygen to patients."],["Developed Victory hygiene + oxygen dispenser machine","",0,"A combined hygiene and oxygen dispensing machine built in 2021."],["Joined MiraiYantra as R&D Engineer","200+ PSA machines built",0,"Started at MiraiYantra Pvt Ltd, leading a team on hydrogen fuel cell and healthcare products. More than 200 PSA oxygen concentrator machines were built during COVID-19."]],p:["Pranvayu oxygen concentrator","Victory dispenser machine"]},
+{y:2022,e:[["Developed Evaidya smart wheelchair","For COPD patients",0,"A smart wheelchair for COPD patients with a built-in oxygen concentrator. It was my engineering project, guided by Prof. Yogesh Risodkar, HOD E&TC, Sandip Institute of Engineering and Management."],["Selected for Yukti bootcamp","",0,"Selected for the Yukti bootcamp for startups."]],p:["Evaidya smart wheelchair","Yukti bootcamp"]},
+{y:2023,e:[["Completed B.E. in Electronics and Telecommunication","SPPU, 75.29%",0,"Graduated from Savitribai Phule Pune University with a B.E. in E&TC."],["Developed India's first hydrogen three-wheeler","Ehydra",0,"Ehydra is India's first hydrogen fuel cell auto rickshaw. I contributed to its development at MiraiYantra."],["European patent granted","",1,"A patent for an innovative technology was granted in Europe."],["Presented Ehydra at an NEP 2020 event","",0,"Presented the Ehydra hydrogen three-wheeler at an NEP 2020 event."],["Selected for AIC Pinnacle investment","",0,"Selected for investment support through AIC Pinnacle."],["PICT Inc winner","",1,"Winner at PICT Inc 24."],["YI IDS 3 winner","",1,"Winner at YI IDS 3."],["Avishkar 23 district level winner","",1,"Winner at Avishkar 23 at zonal and district level."],["GMRT 23 third prize","",1,"Third prize at GMRT 23."],["KPIT Sparkle finalist","",0,"Reached the finals of KPIT Sparkle."]],p:["Ehydra hydrogen three-wheeler","Patent certificate","Award moments","Presentation"]},
+{y:2024,e:[["Nidhi EIR grantee","",1,"Received the Nidhi EIR grant to support startup work."],["Joined KPIT as Trainee Engineer","",0,"Worked as a Trainee Engineer at KPIT."],["Selected for IDEA Catalyst, I-CREATE Ahmedabad","",0,"Selected for the IDEA Catalyst programme at I-CREATE, Ahmedabad."],["EO GSEA Gurgaon winner","",1,"Winner at EO GSEA, Gurgaon."]],p:["Nidhi EIR","I-CREATE Ahmedabad","EO GSEA Gurgaon"]},
+{y:2025,e:[["Nidhi PRAYAS grantee","",1,"Received the Nidhi PRAYAS grant for prototype development."]],p:["Nidhi PRAYAS"]},
+{y:2026,e:[["Associate Incubation Manager, Raisoni Incubation","5 January – 25 June",0,"Built the incubation centre from the ground up at GH Raisoni University, Saikheda, MP, and was the first employee appointed under DST and GHRUTBIF."]],p:["Raisoni Incubation centre"]}
+];
+var tl=document.getElementById('tl'),H=[];
+Y.forEach(function(d){
+ var s=document.createElement('div');s.className='year rv';
+ s.innerHTML='<h3>'+d.y+'</h3><div class="body"><div></div><div class="photos">'+d.p.map(photo).join('')+'</div></div>';
+ var box=s.firstChild.nextSibling.firstChild;
+ d.e.forEach(function(x){var b=document.createElement('button');b.className='ev'+(x[2]?' win':'');b.innerHTML=x[0]+(x[1]?'<small>'+x[1]+'</small>':'');b.onclick=function(){open_(x[0],String(d.y)+(x[2]?' · Win or grant':''),x[3],'Ask me for more details.')};box.appendChild(b);});
+ tl.appendChild(s);
+});
+var P=[["Pranvayu","Oxygen concentrator for COVID patients","A PSA oxygen concentrator built to supply oxygen to COVID patients."],["Victory","Hygiene + oxygen dispenser machine","A machine that combines hygiene dispensing with oxygen dispensing."],["Evaidya","Smart wheelchair for COPD patients","A smart wheelchair with an inbuilt oxygen concentrator for COPD patients."],["Zero Hydrogen Bicycle","Hydrogen-powered bicycle","A bicycle concept powered by hydrogen."],["Cellera","Hydrogen fuel cell material","Materials work for hydrogen fuel cells."],["Ehydra","Hydrogen three-wheeler","India's first hydrogen fuel cell auto rickshaw."]];
+var prod=document.getElementById('prod');
+P.forEach(function(p){var b=document.createElement('button');b.className='card rv';b.innerHTML=photo(p[0]+' photo')+'<div class="t"><h3>'+p[0]+'</h3><p>'+p[1]+'</p></div>';b.onclick=function(){open_(p[0],'Startup product',p[2],'Photos, specs and demos available on request.')};prod.appendChild(b);});
+var L={"IoT":["Energy meter monitoring","Wheelchair fall detection","Patient health monitoring","Heart attack detection","Toll booth manager","Home automation","Industry automation","Solar power monitoring","Streetlight controller","Traffic signal controller","Underground cable fault detector","Air and sound pollution monitor","ICU patient monitoring","Biometric attendance","Smart parking with RFID","Syringe infusion pump","Virtual doctor robot","Smart energy grid","Smart dustbin","Asset tracking","Smart agriculture monitoring","Greenhouse monitoring","Flood detection","Women safety patrol robot","Mining worker safety helmet"],
+"Safety and tracking":["Car safety with airbag notification","Accident and alcohol detector black box","Earthquake monitor and alert","Mountain climber health and GPS tracker","Drink and drive ignition lock","Railway train safety system","Fire and gas accident avoider","Soldier health and position tracking","Ultrasonic blind stick with GPS","Women safety device with GPS"],
+"GSM and PIC":["Energy meter with SMS billing","Home security using GSM","GSM patient health monitoring","DC motor speed control using GSM","RFID attendance with SMS","Vehicle theft alert and engine lock","SMS voting system","SMS railway level gate control","GSM weather reporting","Combustible gas detection with GSM alert"],
+"Machines and robots":["Automatic wire cutter and stripper","Electromagnetic braking system","Colour-based product sorting machine","Weather imaging CubeSat","Social distancing robot for queues","Water pollution monitor RC boat"]};
+var how={"IoT":"Sensors read the real-world signal, a microcontroller such as Arduino or Raspberry Pi processes it, and the result goes online to a dashboard with alerts.","Safety and tracking":"Sensors detect the danger condition, the controller triggers a buzzer, lock or cut-off, and GPS or GSM sends the alert and location.","GSM and PIC":"A PIC microcontroller reads the sensors and a GSM module sends or receives SMS alerts and commands.","Machines and robots":"Motors, sensors and a controller are combined into a working mechanism, with control logic written for the task."};
+var cats=Object.keys(L),chips=document.getElementById('chips'),lib=document.getElementById('lib');
+function show(c){lib.innerHTML='';L[c].forEach(function(t,i){var b=document.createElement('button');b.textContent=t;b.style.animationDelay=(i*25)+'ms';b.onclick=function(){open_(t,c+' project',how[c],'This is a general overview of this project type. Contact me for the exact design, code and results.')};lib.appendChild(b);});[].forEach.call(chips.children,function(b){b.setAttribute('aria-pressed',b.textContent.indexOf(c)===0?'true':'false');});}
+cats.forEach(function(c){var b=document.createElement('button');b.className='chip';b.textContent=c+' ('+L[c].length+')';b.onclick=function(){show(c)};chips.appendChild(b);});
+show(cats[0]);
+var io=new IntersectionObserver(function(a){a.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+[].forEach.call(document.querySelectorAll('.rv'),function(n){io.observe(n);});
+var fill=document.getElementById('fill'),rover=document.getElementById('rover');
+function prog(){var r=tl.getBoundingClientRect(),v=Math.min(r.height-30,Math.max(0,innerHeight*.55-r.top));fill.style.height=v+'px';rover.style.top=v+'px';}
+addEventListener('scroll',prog,{passive:true});prog();
+[].forEach.call(document.querySelectorAll('[data-n]'),function(el){var t=+el.dataset.n,n=0,st=Math.max(1,Math.ceil(t/40));var i=setInterval(function(){n=Math.min(t,n+st);el.textContent=n+(t>=100?'+':'');if(n>=t)clearInterval(i);},35);});
+var lines=['> boot harsh.os','> load hydrogen_core ... <i>OK</i>','> load embedded_iot ... <i>OK</i>','> mission: build useful machines'],term=document.getElementById('term'),li=0,ci=0,out='';
+function type(){if(li>=lines.length){term.innerHTML=out+'<span class="cur"></span>';return;}var l=lines[li];ci++;var tmp=l.slice(0,ci);if(ci>=l.length){out+=l+'<br>';li++;ci=0;term.innerHTML=out+'<span class="cur"></span>';setTimeout(type,300);}else{term.innerHTML=out+(tmp.indexOf('<')>-1?l.slice(0,l.indexOf('<')):tmp)+'<span class="cur"></span>';setTimeout(type,35);}}
+type();
+</script>
+</body>
+</html>
